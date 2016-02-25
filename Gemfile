@@ -7,6 +7,7 @@ gem 'active_model_serializers', git: 'git@github.com:rails-api/active_model_seri
 gem 'rack-cors', require: 'rack/cors'
 gem 'pg'
 gem 'bcrypt', '~> 3.1.7'
+gem 'rename'
 
 group :development, :test do
   gem 'pry', '~> 0.10'
