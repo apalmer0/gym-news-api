@@ -1,6 +1,34 @@
 require 'rails_helper'
 
-RSpec.describe 'Gyms API' do
+RSpec.describe 'Climbs API' do
+  def climb_params
+    {
+      color: 'Blue',
+      grade: '12',
+      modifier: '+'
+    }
+  end
+
+  def climbs
+    Climb.all
+  end
+
+  def climb
+    Climb.first
+  end
+
+  def user_params
+    {
+      email: 'alice@example.com',
+      password: 'foobarbaz',
+      password_confirmation: 'foobarbaz'
+    }
+  end
+
+  def user
+    User.first
+  end
+
   def gym_params
     {
       name: 'Fake Gym',
@@ -17,49 +45,39 @@ RSpec.describe 'Gyms API' do
     Gym.first
   end
 
-  def user_params
-    {
-      email: 'alice@example.com',
-      password: 'foobarbaz',
-      password_confirmation: 'foobarbaz'
-    }
-  end
-
-  def user
-    User.first
-  end
-
   before(:all) do
-    Gym.create!(gym_params)
     User.create!(user_params)
+    Climb.create!(climb_params)
+    Gym.create!(gym_params)
   end
 
   after(:all) do
-    Gym.delete_all
+    Climb.delete_all
     User.delete_all
+    Gym.delete_all
   end
 
-  describe 'GET /gyms' do
-    it 'lists all gyms' do
-      get '/gyms'
+  describe 'GET /climbs' do
+    it 'lists all climbs' do
+      get '/climbs'
 
       expect(response).to be_success
 
-      gyms_response = JSON.parse(response.body)
-      expect(gyms_response.length).to eq(gyms.count)
-      expect(gyms_response.first['name']).to eq(gym.name)
+      climbs_response = JSON.parse(response.body)
+      expect(climbs_response.length).to eq(climbs.count)
+      expect(climbs_response.first['color']).to eq(climb.color)
     end
   end
 
-  describe 'GET /gyms/:id' do
-    it 'shows one gym' do
-      get "/gyms/#{gym.id}"
+  describe 'GET /climbs/:id' do
+    it 'shows one climb' do
+      get "/climbs/#{climb.id}"
 
       expect(response).to be_success
 
-      gym_response = JSON.parse(response.body)
-      expect(gym_response['id']).to eq(gym.id)
-      expect(gym_response['name']).to eq(gym.name)
+      climb_response = JSON.parse(response.body)
+      expect(climb_response['id']).to eq(climb.id)
+      expect(climb_response['color']).to eq(climb.color)
     end
   end
 
@@ -72,10 +90,10 @@ RSpec.describe 'Gyms API' do
       }
     end
 
-    describe 'POST /gyms' do
-      it 'creates a gym' do
-        post '/gyms', gym_params, headers
-        # post takes arguments. the first is the gym (the data)
+    describe 'POST /climbs' do
+      it 'creates a climb' do
+        post '/climbs', climb_params, headers
+        # post takes arguments. the first is the climb (the data)
         # the second hash argument to post is a collection of headers
 
         # whenever you see two hash arguments, you HAVE to put the first argument
@@ -87,32 +105,32 @@ RSpec.describe 'Gyms API' do
 
         expect(response).to be_success
 
-        gym_response = JSON.parse(response.body)
-        expect(gym_response['id']).not_to be_nil
-        expect(gym_response['name']).to eq(gym_params[:name])
+        climb_response = JSON.parse(response.body)
+        expect(climb_response['id']).not_to be_nil
+        expect(climb_response['color']).to eq(climb_params[:color])
       end
     end
 
-    describe 'PATCH /gyms/:id' do
-      def gym_diff
-        { name: 'Updated Gymname' }
+    describe 'PATCH /climbs/:id' do
+      def climb_diff
+        { color: 'Green' }
       end
 
-      it 'updates an gym' do
-        patch "/gyms/#{gym.id}", gym_diff, headers
+      it 'updates an climb' do
+        patch "/climbs/#{climb.id}", climb_diff, headers
         #  yo. note the arguments and the hash
 
         expect(response).to be_success
 
-        gym_response = JSON.parse(response.body)
-        expect(gym_response['id']).to eq(gym.id)
-        expect(gym_response['name']).to eq(gym_diff[:name])
+        climb_response = JSON.parse(response.body)
+        expect(climb_response['id']).to eq(climb.id)
+        expect(climb_response['color']).to eq(climb_diff[:color])
       end
     end
 
-    describe 'DELETE /gyms/:id' do
-      it 'deletes an gym' do
-        delete "/gyms/#{gym.id}", nil, headers
+    describe 'DELETE /climbs/:id' do
+      it 'deletes an climb' do
+        delete "/climbs/#{climb.id}", nil, headers
         # yo. these arguments are positional (you can't switch nil and headers)
 
         expect(response).to be_success
@@ -129,9 +147,9 @@ RSpec.describe 'Gyms API' do
       }
     end
 
-    describe 'POST /gyms' do
+    describe 'POST /climbs' do
       it 'is not successful' do
-        post '/gyms', nil, headers
+        post '/climbs', nil, headers
         # no point in actually passing data in that second arg, bc if this test is to pass, it'll
         # never get to the point where it actually needs data.
 
@@ -139,17 +157,17 @@ RSpec.describe 'Gyms API' do
       end
     end
 
-    describe 'PATCH /gyms/:id' do
+    describe 'PATCH /climbs/:id' do
       it 'is not successful' do
-        patch "/gyms/#{gym.id}", nil, headers
+        patch "/climbs/#{climb.id}", nil, headers
 
         expect(response).not_to be_success
       end
     end
 
-    describe 'DELETE /gyms/:id' do
+    describe 'DELETE /climbs/:id' do
       it 'is not successful' do
-        delete "/gyms/#{gym.id}", nil, headers
+        delete "/climbs/#{climb.id}", nil, headers
 
         expect(response).not_to be_success
       end
