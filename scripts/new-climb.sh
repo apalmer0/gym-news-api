@@ -6,5 +6,5 @@ curl --include --request POST http://localhost:3000/climbs \
   --data '{
       "color": "TEST",
       "grade": "TEST",
-      "location": "TEST"
+      "modifier": "TEST"
     }'

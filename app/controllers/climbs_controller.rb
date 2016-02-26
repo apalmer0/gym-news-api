@@ -1,9 +1,12 @@
 class ClimbsController < ProtectedController
   before_filter :set_climb, only: [:show, :update, :destroy]
+  before_filter :set_gym, only: [:index, :create]
   skip_before_action :authenticate, only: [:index, :show]
 
   def index
-    render json: Climb.all
+    @climbs = @gym.climbs
+
+    render json: @climbs
   end
 
   def show
@@ -12,6 +15,7 @@ class ClimbsController < ProtectedController
 
   def create
     @climb = Climb.new(climb_params)
+    @climb.gym = @gym
 
     if @climb.save
       render json: @climb, status: :created
@@ -33,13 +37,17 @@ class ClimbsController < ProtectedController
     head :no_content
   end
 
+private
+
   def set_climb
     @climb = Climb.find(params[:id])
   end
-  private :set_climb
+
+  def set_gym
+    @gym = Gym.find(params[:gym_id])
+  end
 
   def climb_params
-    params.permit(:color, :grade, :modifier)
+    params.require(:climb).permit(:color, :grade, :modifier)
   end
-  private :climb_params
 end

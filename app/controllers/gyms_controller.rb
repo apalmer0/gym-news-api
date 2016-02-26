@@ -39,7 +39,7 @@ class GymsController < ProtectedController
   private :set_gym
 
   def gym_params
-    params.permit(:name, :city, :state)
+    params.require(:gym).permit(:name, :city, :state)
   end
   private :gym_params
 end

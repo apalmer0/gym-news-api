@@ -74,7 +74,7 @@ RSpec.describe 'Gyms API' do
 
     describe 'POST /gyms' do
       it 'creates a gym' do
-        post '/gyms', gym_params, headers
+        post '/gyms', { gym: gym_params }, headers
         # post takes arguments. the first is the gym (the data)
         # the second hash argument to post is a collection of headers
 
@@ -99,7 +99,7 @@ RSpec.describe 'Gyms API' do
       end
 
       it 'updates an gym' do
-        patch "/gyms/#{gym.id}", gym_diff, headers
+        patch "/gyms/#{gym.id}", { gym: gym_diff }, headers
         #  yo. note the arguments and the hash
 
         expect(response).to be_success
@@ -111,7 +111,7 @@ RSpec.describe 'Gyms API' do
     end
 
     describe 'DELETE /gyms/:id' do
-      it 'deletes an gym' do
+      it 'deletes a gym' do
         delete "/gyms/#{gym.id}", nil, headers
         # yo. these arguments are positional (you can't switch nil and headers)
 

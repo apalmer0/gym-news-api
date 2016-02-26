@@ -43,18 +43,18 @@ RSpec.describe ClimbsController do
 
   before(:all) do
     User.create!(user_params)
-    Climb.create!(climb_params)
     Gym.create!(gym_params)
+    gym.climbs.create!(climb_params)
   end
 
   after(:all) do
-    User.delete_all
     Climb.delete_all
     Gym.delete_all
+    User.delete_all
   end
 
   describe 'GET index' do
-    before(:each) { get :index }
+    before(:each) { get :index, gym_id: gym.id }
     it 'is succesful' do
       expect(response.status).to eq(200)
     end
@@ -67,13 +67,13 @@ RSpec.describe ClimbsController do
 
   describe 'GET show' do
     it 'is successful' do
-      get :show, id: climb.id
+      get :show, id: climb.id, gym_id: gym.id
 
       expect(response.status).to eq(200)
     end
 
     it 'renders a JSON response' do
-      get :show, id: climb.id
+      get :show, id: climb.id, gym_id: gym.id
 
       climb_response = JSON.parse(response.body)
       expect(climb_response).not_to be_nil
@@ -87,7 +87,7 @@ RSpec.describe ClimbsController do
 
     describe 'POST create' do
       before(:each) do
-        post :create, climb: climb_params, format: :json
+        post :create, climb: climb_params, format: :json, gym_id: gym.id
       end
 
       it 'is successful' do
@@ -106,7 +106,7 @@ RSpec.describe ClimbsController do
       end
 
       before(:each) do
-        patch :update, id: climb.id, climb: climb_diff, format: :json
+        patch :update, id: climb.id, climb: climb_diff, format: :json, gym_id: gym.id
       end
 
       it 'is successful' do
@@ -121,7 +121,7 @@ RSpec.describe ClimbsController do
 
     describe 'DELETE destroy' do
       it 'is successful and returns an empty response' do
-        delete :destroy, id: climb.id, format: :json
+        delete :destroy, id: climb.id, format: :json, gym_id: gym.id
 
         expect(response).to be_successful
         expect(response.body).to be_empty
@@ -136,21 +136,21 @@ RSpec.describe ClimbsController do
 
     describe 'POST create' do
       it 'is not successful' do
-        post :create, climb: climb_params
+        post :create, climb: climb_params, gym_id: gym.id
         expect(response).not_to be_successful
       end
     end
 
     describe 'PATCH update' do
       it 'is not successful' do
-        patch :update, id: climb.id
+        patch :update, id: climb.id, gym_id: gym.id
         expect(response).not_to be_successful
       end
     end
 
     describe 'DELETE destroy' do
       it 'is not successful' do
-        delete :destroy, id: climb.id
+        delete :destroy, id: climb.id, gym_id: gym.id
         expect(response).not_to be_successful
       end
     end
