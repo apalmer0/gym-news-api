@@ -60,11 +60,6 @@ RSpec.describe ProfilesController do
   end
 
   describe 'POST create' do
-    # def headers
-    #   {
-    #     'HTTP_AUTHORIZATION' => "Token token=#{user.token}"
-    #   }
-    # end
     before(:each) do
       request.env['HTTP_AUTHORIZATION'] = "Token token=#{user.token}"
       post :create, user_id: user.id, profile: profile_params, format: :json
