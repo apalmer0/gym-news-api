@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227164736) do
+ActiveRecord::Schema.define(version: 20160229165921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "climbs", force: :cascade do |t|
     t.string   "color"
-    t.integer  "grade"
+    t.string   "grade"
     t.string   "modifier"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "gym_id"
+    t.string   "climb_type"
   end
 
   add_index "climbs", ["gym_id"], name: "index_climbs_on_gym_id", using: :btree

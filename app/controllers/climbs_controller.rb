@@ -14,13 +14,19 @@ class ClimbsController < ProtectedController
   end
 
   def create
-    @climb = Climb.new(climb_params)
-    @climb.gym = @gym
+    invalid_climb = false
 
-    if @climb.save
-      render json: @climb, status: :created
+    Climb.transaction do
+      @climbs = Climb.create(climb_params)
+      invalid_climb = @climbs.find { |climb| !climb.valid? }
+      fail ActiveRecord::Rollback if invalid_climb
+    end
+
+    if !invalid_climb
+      render json: @climbs, status: :created
     else
-      render json: @climb.errors, status: :unprocessable_entity
+      render json: invalid_climb.errors, status: :unprocessable_entity
+      # find the first broken instance, render its errors
     end
   end
 
@@ -48,6 +54,6 @@ private
   end
 
   def climb_params
-    params.require(:climb).permit(:color, :grade, :modifier)
+    params.permit(climbs: [:color, :climb_type, :grade, :modifier, :gym_id])[:climbs]
   end
 end
