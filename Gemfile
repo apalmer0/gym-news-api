@@ -9,7 +9,7 @@ gem 'pg'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rename'
 gem 'rails_12factor'
-gem 'dotenv-rails'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 group :development, :test do
   gem 'pry', '~> 0.10'
