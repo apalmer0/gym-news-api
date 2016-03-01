@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   end
   resources :climbs, except: [:new, :edit, :index, :create]
   # show, update, destroy
+  resources :favorites
 end
