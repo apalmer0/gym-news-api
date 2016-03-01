@@ -8,6 +8,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'pg'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rename'
+gem 'rails_12factor'
 
 group :development, :test do
   gem 'pry', '~> 0.10'
