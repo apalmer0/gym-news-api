@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :gyms do
     resources :climbs, only: [:index, :create]
     # index, create
+    resources :bulletins
   end
   resources :climbs, except: [:new, :edit, :index, :create]
   # show, update, destroy

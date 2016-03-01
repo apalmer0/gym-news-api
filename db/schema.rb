@@ -11,21 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301162801) do
+ActiveRecord::Schema.define(version: 20160301184656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bulletins", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "gym_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bulletins", ["gym_id"], name: "index_bulletins_on_gym_id", using: :btree
 
   create_table "climbs", force: :cascade do |t|
     t.string   "color"
     t.string   "grade"
     t.string   "modifier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "gym_id"
     t.string   "climb_type"
+    t.integer  "bulletin_id"
   end
 
+  add_index "climbs", ["bulletin_id"], name: "index_climbs_on_bulletin_id", using: :btree
   add_index "climbs", ["gym_id"], name: "index_climbs_on_gym_id", using: :btree
 
   create_table "favorites", force: :cascade do |t|
@@ -69,6 +80,8 @@ ActiveRecord::Schema.define(version: 20160301162801) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
+  add_foreign_key "bulletins", "gyms"
+  add_foreign_key "climbs", "bulletins"
   add_foreign_key "climbs", "gyms"
   add_foreign_key "favorites", "climbs"
   add_foreign_key "favorites", "users"
