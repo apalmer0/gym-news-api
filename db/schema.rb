@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229193712) do
+ActiveRecord::Schema.define(version: 20160301162801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20160229193712) do
   end
 
   add_index "climbs", ["gym_id"], name: "index_climbs_on_gym_id", using: :btree
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "climb_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorites", ["climb_id"], name: "index_favorites_on_climb_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "gyms", force: :cascade do |t|
     t.string   "name"
@@ -60,5 +70,7 @@ ActiveRecord::Schema.define(version: 20160229193712) do
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
   add_foreign_key "climbs", "gyms"
+  add_foreign_key "favorites", "climbs"
+  add_foreign_key "favorites", "users"
   add_foreign_key "profiles", "users"
 end
