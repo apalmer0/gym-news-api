@@ -1,11 +1,3 @@
-GIT
-  remote: git@github.com:rails-api/rails-api.git
-  revision: f43189a9d123f6b2638de4a732ea9105a5c46aa4
-  specs:
-    rails-api (0.4.0)
-      actionpack (>= 3.2.11)
-      railties (>= 3.2.11)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -93,6 +85,9 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.5.1)
       sprockets-rails
+    rails-api (0.4.0)
+      actionpack (>= 3.2.11)
+      railties (>= 3.2.11)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -164,7 +159,7 @@ DEPENDENCIES
   pry-rails (~> 0.3.4)
   rack-cors
   rails (~> 4.2.5)
-  rails-api!
+  rails-api
   rails_12factor
   rename
   rspec (~> 3.4.0)
