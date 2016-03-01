@@ -31,7 +31,7 @@ class ClimbsController < ProtectedController
   end
 
   def update
-    if @climb.update(climb_params)
+    if @climb.update(edit_climb_params)
       render json: @climb, status: :ok
     else
       render json: @climb.errors, status: :unprocessable_entity
@@ -55,5 +55,9 @@ private
 
   def climb_params
     params.permit(climbs: [:color, :climb_type, :grade, :modifier, :gym_id])[:climbs]
+  end
+
+  def edit_climb_params
+    params.permit(:color, :climb_type, :grade, :modifier, :gym_id)
   end
 end
