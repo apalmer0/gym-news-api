@@ -10,6 +10,12 @@ class BulletinsController < ProtectedController
     render json: @bulletins
   end
 
+  def listclimbs
+    @bulletin = Bulletin.find(params[:id])
+    @climbs = @bulletin.climbs
+    render json: @climbs
+  end
+
   def show
     render json: @bulletin
   end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post '/sign-in' => 'users#signin'
   delete '/sign-out/:id' => 'users#signout'
   patch '/change-password/:id' => 'users#changepw'
+  get 'bulletins/:id/climbs' => 'bulletins#listclimbs'
 
   resources :users, only: [:index, :show] do
     resources :profiles
