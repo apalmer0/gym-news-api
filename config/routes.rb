@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   patch '/change-password/:id' => 'users#changepw'
   get 'bulletins/:id/climbs' => 'bulletins#listclimbs'
 
-  resources :users, only: [:index, :show] do
-    resources :profiles
-  end
+  resources :users, only: [:index, :show]
 
   resources :gyms do
     resources :climbs, only: [:index, :create]
