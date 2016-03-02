@@ -1,6 +1,7 @@
-[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
-
 # Gym News API
+
+  [Gym News Front End](http://apalmer0.github.io/gym-news-front-end/index.html)
+  [Gym News Back End](https://fathomless-castle-93150.herokuapp.com/)
 
 -   This is the back end that powers the Gym News Front End web app. There are a
     number of models and controllers in use here, specifically:
