@@ -54,7 +54,7 @@ private
   end
 
   def climb_params
-    params.permit(climbs: [:color, :climb_type, :grade, :modifier, :gym_id])[:climbs]
+    params.permit(climbs: [:color, :climb_type, :grade, :modifier, :gym_id, :bulletin_id])[:climbs]
   end
 
   def edit_climb_params

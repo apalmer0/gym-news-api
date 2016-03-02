@@ -2,14 +2,14 @@ source 'https://rubygems.org'
 ruby '2.2.4'
 
 gem 'rails', '~> 4.2.5'
-gem 'rails-api'
-gem 'active_model_serializers'
+gem 'rails-api', git: 'git@github.com:rails-api/rails-api.git'
+gem 'active_model_serializers', git: 'git@github.com:rails-api/active_model_serializers.git'
 gem 'rack-cors', require: 'rack/cors'
 gem 'pg'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rename'
-gem 'rails_12factor'
-gem 'dotenv-rails', :groups => [:development, :test]
+# gem 'rails_12factor'
+# gem 'dotenv-rails', :groups => [:development, :test]
 
 group :development, :test do
   gem 'pry', '~> 0.10'

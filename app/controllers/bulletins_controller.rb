@@ -1,9 +1,13 @@
 class BulletinsController < ProtectedController
   before_filter :set_bulletin, only: [:show, :update, :destroy]
+  before_filter :set_gym, only: [:index]
   skip_before_action :authenticate, only: [:index, :show]
 
   def index
-    render json: Bulletin.all
+    # render json: Bulletin.all
+    @bulletins = @gym.bulletins.order(created_at: :desc)
+
+    render json: @bulletins
   end
 
   def show
@@ -33,6 +37,7 @@ class BulletinsController < ProtectedController
     head :no_content
   end
 
+
   def set_bulletin
     @bulletin = Bulletin.find(params[:id])
   end
@@ -42,5 +47,11 @@ class BulletinsController < ProtectedController
     params.require(:bulletin).permit(:content, :gym_id)
   end
   private :bulletin_params
+
+private
+
+  def set_gym
+    @gym = Gym.find(params[:gym_id])
+  end
 
 end
