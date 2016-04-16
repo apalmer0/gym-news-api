@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl --include --request POST https://fathomless-castle-93150.herokuapp.com/sign-up \
+curl --include --request POST https://gym-news.herokuapp.com/sign-up \
   --header "Content-Type: application/json" \
   --data '{
     "credentials": {

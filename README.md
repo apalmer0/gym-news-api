@@ -1,7 +1,7 @@
 # Gym News API
 
   [Gym News Front End](http://apalmer0.github.io/gym-news-front-end/index.html)
-  [Gym News Back End](https://fathomless-castle-93150.herokuapp.com/)
+  [Gym News Back End](https://gym-news.herokuapp.com/)
 
 -   This is the back end that powers the Gym News Front End web app. There are a
     number of models and controllers in use here, specifically:
